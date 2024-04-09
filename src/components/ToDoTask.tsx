@@ -6,8 +6,9 @@ interface TaskProps{
 }
 
 export function ToDoTask({taskID, taskDesc}: TaskProps){
+    //finished rendering task. Need to take input for tasks
     return <div>
-        <p>Current Task {taskID}</p>
-        <p>Task Description {taskDesc}</p>
+        <span>Task {taskID}: </span>
+        <span>{taskDesc}</span>
     </div>
 }
