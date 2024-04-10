@@ -1,20 +1,21 @@
-import { useState } from "react";
+/*
 
+1. We need to pass variables into our ToDo item so that we can render them from outside the component
+    - Do this using props, which are great for passing variables between components
+2. Figure out how to set up completion status of the task
+3. Make it visually appealing
+*/
 
 interface TaskProps{
-    taskID: number,
-    taskDesc: string,
-    completed: boolean,
+    taskNum: number,
+    taskName: string,
 }
 
 
+export function Task({taskNum, taskName}: TaskProps){
 
-export function ToDoTask({taskID, taskDesc, completed}: TaskProps){
-    //finished rendering task. Need to take input for tasks
-    return <div className=" w-11/12 h-12 mt-5 mb-0.5 rounded-md bg-violet-500 flex items-center justify" style={completed ? {textDecoration: "line-through"} : {textDecoration: "bold"}}>
-        <div className="ml-2 text-white font-bold">
-        <span onClick={() => completed = true} >Task {taskID}: </span>
-        <span>{taskDesc}</span>
-        </div>
+    return <div className="text-white">
+        <span>Task {taskNum}: </span>
+        <span>{taskName}</span>
     </div>
 }

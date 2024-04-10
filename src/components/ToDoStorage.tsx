@@ -1,37 +1,34 @@
-import { useState } from "react";
-import { ToDoTask } from "./ToDoTask.tsx";
+/*
+1. Utilize state to store variables for the ToDoList.
+    - One for the count of number of tasks (DONE)
+    - One for the array of Tasks (DONE)
+2. Create a function that adds a task to the array of ToDos.
+    - This should be called upon by an onclick function by an array. (DONE)
+    - The task name should be implemented through an input text box that submits the information. (IN PROGRESS)
+
+3. Render the tasks using map() function.
+
+*/
+import { useState } from "react"
+import { Task } from "./ToDoTask";
 
 interface Task{
-    taskID: number,
-    taskDesc: string,
-    completed: boolean
+    taskNum: number,
+    taskName: string,
 }
 
-export function ToDoStorage(){
-    const [taskArr, setTaskArr] = useState<Task[]>([]);
-    const [taskNum, setTaskNum] = useState<number>(1);
-    const [taskName, setTaskName] = useState<string>("");
-    const [completed, setCompletion] = useState<boolean>(false);
+export function ToDoList(){
+    const [ToDos, setToDos] = useState<Task[]>([]);
+    const [numTasks, setNumTasks] = useState<number>(0);
 
-    function changeTaskName(event: React.ChangeEvent<HTMLInputElement>){
-        setTaskName(event.target.value);
+    function addTask(taskName: string, taskNumber: number){
+        setNumTasks(numTasks+1);
+        const newTask = { taskNum: taskNumber, taskName: taskName}
+        setToDos([...ToDos, newTask]);
     }
 
-    function addTask(taskDescription: string, taskNumber: number, completed: boolean){
-        const task = { taskDesc: taskDescription, taskID: taskNumber, completed: completed }
-        setTaskArr([...taskArr, task])
-        setTaskNum(taskNum + 1);
-        setTaskName("");
-    }
-
-
-
-    return <div className="border border-x-purple-600 w-4/12 h-4/6 overflow-y-scroll bg-blue-950 flex flex-col items-center rounded-md" >
-        <h1 className="text-white bold text-3xl mt-4 mb-2">What Needs To Be Done?</h1>
-        <div className="flex justify-center items-center">
-            <input type="text" placeholder="What is your task today?" onChange={changeTaskName} defaultValue={""}></input>
-            <button className="text-red-400 border border-red-600 ml-1" onClick={() => addTask(taskName, taskNum, completed)} disabled={taskName === "" ? true : false}>Add Task</button>
-        </div>
-        {taskArr.map((task) => <ToDoTask taskDesc={task.taskDesc} taskID={task.taskID} completed={task.completed} key={task.taskID}></ToDoTask>)}
+    return <div>
+        <button onClick={() => addTask("poop", numTasks)}>Add Task</button>
+        {ToDos.map((task) => <Task taskNum={task.taskNum} taskName={task.taskName}></Task>)}
     </div>
 }
